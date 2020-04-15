@@ -1,5 +1,7 @@
 # cfcf migration - pipeline identification
 
+PS : Please do a git clone to get an unformatted version of the script file.
+
 This is a sample script to identify all pipelines under a codefresh account impacted by  codefresh integreted registry a.k.a CFCR, deprectation.
 
 More about CFCR registry depreaction - https://codefresh.io/docs/docs/docker-registries/cfcr-deprecation/
