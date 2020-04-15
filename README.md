@@ -36,7 +36,7 @@ This script identifies the various pipelines in the following order.
 
 ### How to run the script
 
-Run the script passing the codefresh account API key, shorthand for your account name  and the limit to restrict the no of repo pipeline to process.
+Run the script passing the codefresh account ```API key, account name  and a count ``` to limit to restrict the no of repo pipeline to process.
 
 E.g 
 
