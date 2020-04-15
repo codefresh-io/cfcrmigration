@@ -44,7 +44,7 @@ E.g
 ./cfcrmigidentify.sh api-key cf 10
 ```
 
-PS : account name can be abbrivated. E.g instead of the full account name ```codefresh``` , you can pass ```cf``` 
+PS : account name can be abbreviated. E.g instead of the full account name ```codefresh``` , you can pass ```cf``` 
 
 ### Output
 
