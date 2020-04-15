@@ -36,13 +36,15 @@ This script identifies the various pipelines in the following order.
 
 ### How to run the script
 
-Run the script passing the codefresh account ```API key, account name  and a count ``` to limit to restrict the no of repo pipeline to process.
+Run the script passing the codefresh account ```API key, account name  and a count ```  to limit the no of repo pipeline to process.
 
 E.g 
 
 ```
-./cfcrmigidentify.sh api-key cfdemo 10
+./cfcrmigidentify.sh api-key cf 10
 ```
+
+PS : account name can be abbrivated e.g instead of the full accunt name codeferesh, you can pass cf 
 
 ### Output
 
