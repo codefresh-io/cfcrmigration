@@ -1,6 +1,6 @@
 # cfcf migration - pipeline identification
 
-PS : Please do a ```git clone``` to get an unformatted version of the script file.
+PS : If downloaded version of the scriptfile results in a formatting change,  please do a ```git clone``` to get an unformatted version of the script file.
 
 This is a sample script to identify all pipelines under a codefresh account impacted by  codefresh integreted registry a.k.a CFCR, deprectation.
 
