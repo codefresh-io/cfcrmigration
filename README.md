@@ -46,7 +46,7 @@ E.g
 
 Script will generate a number pipeline spec files into a directory by name /cfpips.
 
-Along with an execution log and err log files, the important report file that you should look out for is an output csv file containing all the impacted pieplines.
+Along with an execution log and err log files, the important report file that you should look out for is an output csv file containing all the impacted pipelines.
 
 E.g 
 ```
