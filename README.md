@@ -42,14 +42,13 @@ This script identifies the various pipelines in the following order.
 
 1. using docker
 
-Build you docker image locally
+Build docker image locally using the following build command
 
 ```
 docker build . -t cfcrpips
 ```
 
-create an output folder
-
+create an output folder to generate your report.
 
 E.g
 ```
