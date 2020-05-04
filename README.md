@@ -56,12 +56,12 @@ E.g
 mkdir output 
 ```
 
-Run your a docker container out of the image that you built, passinng in APIKEY and the  output folder as mount points.
+Run a docker container out of the image that you just built, passing in APIKEY and the  output folder as mount points.
 ```
 docker run -e APIKEY="yourapikey" -e outputfolder="/output" -v /tmp/cfcrmig/cfcrmigration/output:/output cfcrpips:latest
 ```
 
-2) You can run this script as a node js script using node cli, passing the codefresh account API key as an env value by keeping it in .env file.
+2) Run this script as a node js script using node cli, passing the codefresh account API key as an env value by keeping it in .env file.
 
 To run this script install node.js and then run as follows
 
