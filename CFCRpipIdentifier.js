@@ -17,7 +17,7 @@ if (!process.env.APIKEY && !process.env.XACCESSTOKEN) {
     process.exit(1);
 }
 
-const outputfolder = process.env.outputfolder || '/output'
+const outputfolder = process.env.outputfolder || './output'
 
 console.log("outputfolder -->", outputfolder)
 const Logger = require('./winstonlogger')
@@ -183,12 +183,23 @@ const metaretriever = async () => {
 
 
 
+        // if (process.env.sendemail) {
+
+        //     setTimeout(() => {  console.log("waitinf before mailing out the report!"); }, 5000);
+        //     const mailsender = require('./sendoutputmails');
+
+        //     await mailsender.sendMail();
+
+        // }
+
+
 
     } catch (err) {
 
 
         reglogger.info(err);
     }
+
 
 }
 
