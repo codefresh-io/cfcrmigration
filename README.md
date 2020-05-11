@@ -53,6 +53,7 @@ create an output folder to generate your report.
 E.g
 ```
 mkdir output 
+chmod 777 output
 ```
 
 Run a docker container out of the image that you just built, passing in APIKEY and the  output folder as mount points.
