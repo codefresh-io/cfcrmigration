@@ -97,7 +97,8 @@ const metaretriever = async () => {
         let piplineReports = []
         let piplineReportsA = []
         let piplineReportsB = []
-
+        // write header record 
+        logger.info("pipelineid ,pipline name ,step type, step name, repo location");
         _.forEach(allPipsMetadata.data.docs, async function (nextitem, index) {
 
 
@@ -107,13 +108,14 @@ const metaretriever = async () => {
             let pilinesteps = nextitem.spec.steps; // pipeline steps, can ebe null
 
             let pilinestepNames = _.keys(pilinesteps);
+            let pipelinespecTemplate = nextitem.spec.specTemplate;
 
             // reglogger.info(pilinestepNames)
             if (pilinestepNames.length > 0) // pipeline steps exists
             {
 
 
-                await processStespForCFCR(metadata.id, metadata.name, pilinesteps, pilinestepNames, piplineReports)
+                await processStespForCFCR(metadata.id, metadata.name, pilinesteps, pilinestepNames, pipelinespecTemplate, piplineReports)
 
             } else {
 
@@ -185,7 +187,7 @@ const metaretriever = async () => {
 
         // if (process.env.sendemail) {
 
-        //     setTimeout(() => {  console.log("waitinf before mailing out the report!"); }, 5000);
+        //     setTimeout(() => { console.log("waitinf before mailing out the report!"); }, 5000);
         //     const mailsender = require('./sendoutputmails');
 
         //     await mailsender.sendMail();
@@ -284,10 +286,30 @@ async function getBuildYamlAsJson(yamlString) {
 //test1();
 
 
-async function processStespForCFCR(mid, mname, pilinesteps, pilinestepNames, piplineReports) {
+async function processStespForCFCR(mid, mname, pilinesteps, pilinestepNames, pipelinespecTemplate, piplineReports) {
 
     let pullcount = 0;
     let pushcount = 0;
+
+
+    let repoLocation = null;
+    if (pipelinespecTemplate != undefined) {
+
+
+        if (pipelinespecTemplate.repo)
+            repoLocation = "repo : " + pipelinespecTemplate.repo
+        if (pipelinespecTemplate.path)
+            repoLocation = repoLocation + " path: " + pipelinespecTemplate.path
+        if (pipelinespecTemplate.revision)
+
+            repoLocation = repoLocation + " revision :" + pipelinespecTemplate.revision
+        // "repo": "",
+        // "path": "",
+        // "revision": "master",
+    } else {
+
+        repoLocation = "Inline"
+    }
     _.forEach(pilinestepNames, function (nextpipstep, index) {
 
         // reglogger.info("  ", nextpipstep);
@@ -316,7 +338,7 @@ async function processStespForCFCR(mid, mname, pilinesteps, pilinestepNames, pip
                         // reglogger.info("          ", nextStepCode, ": ", stepvalue);
                         pullcount = pullcount + 1
                         //PipelineID,PipelineName,Step type,StepName
-                        matchedItem = mid + "," + mname + ",pull, " + nextpipstep
+                        matchedItem = mid + "," + mname + ",pull, " + nextpipstep + "," + repoLocation
                         logger.info(matchedItem);
                         piplineReportsG.push(matchedItem)
                         // writenewreocrd(matchedItem);
@@ -327,18 +349,18 @@ async function processStespForCFCR(mid, mname, pilinesteps, pilinestepNames, pip
                         //     // reglogger.info(nextitem.meta.name , " no cfcr ", )
                         pushcount = pushcount + 1
                         //PipelineID,PipelineName,Step type,StepName
-                        matchedItem = mid + "," + mname + ",push, " + nextpipstep
+                        matchedItem = mid + "," + mname + ",push, " + nextpipstep + "," + repoLocation
                         logger.info(matchedItem);
                         piplineReportsG.push(matchedItem)
                         // writenewreocrd(matchedItem);
                     } else if (stepvalue === 'build' && nextStepCode === 'type') {
 
-                        if ("5e9e1839580e7a48ffb0df1a" === mid) {
+                        // if ("5e9e1839580e7a48ffb0df1a" === mid) {
 
-                            reglogger.info("nextStepCode ", nextStepCode);
-                        }
+                        //     reglogger.info("nextStepCode ", nextStepCode);
+                        // }
 
-                        matchedItem = mid + "," + mname + ",build, " + nextpipstep
+                        matchedItem = mid + "," + mname + ",build, " + nextpipstep + "," + repoLocation
                         logger.info(matchedItem);
                         piplineReportsG.push(matchedItem)
                         // writenewreocrd(matchedItem);
@@ -379,7 +401,7 @@ async function writenewreocrd(record) {
 
 async function callcodefreshapis(resourcePath) {
 
-    reglogger.info(`Inoking codefresh api for the resource ${resourcePath}`)
+    reglogger.info(`Invoking codefresh api for the resource ${resourcePath}`)
 
     let config = {
         headers: { 'x-access-token': process.env.XACCESSTOKEN },
