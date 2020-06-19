@@ -58,7 +58,7 @@ chmod 777 output
 
 Run a docker container out of the image that you just built, passing in APIKEY and the  output folder as mount points.
 ```
-docker run -e APIKEY="yourapikey" -e outputfolder="/output" -v /tmp/cfcrmig/cfcrmigration/output:/output cfcrpips:latest
+docker run -e APIKEY="yourapikey" -e outputfolder="/output"  -e skipInline=true -v /tmp/cfcrmig/cfcrmigration/output:/output cfcrpips:latest
 ```
 
 2) Run this script as a node js script using node cli, passing the codefresh account API key as an env value by keeping it in .env file.
