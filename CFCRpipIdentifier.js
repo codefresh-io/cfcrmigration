@@ -18,6 +18,9 @@ if (!process.env.APIKEY && !process.env.XACCESSTOKEN) {
 }
 
 const outputfolder = process.env.outputfolder || './output'
+const skipInline = process.env.skipInline || false
+
+
 
 console.log("outputfolder -->", outputfolder)
 const Logger = require('./winstonlogger')
@@ -25,7 +28,7 @@ const Logger = require('./winstonlogger')
 const logger = new Logger.CSVLogger(outputfolder);
 const reglogger = new Logger.RegLogger(outputfolder);
 
-
+reglogger.info("skipInline  "+skipInline);
 
 reglogger.info("this node.js program will identify and genrate a CSV report of all the pipelines under your accout \n\n usage  npm install\n edit .env and add your account API key \n node CFCRpipidentifier ");
 
@@ -36,11 +39,14 @@ const _ = require('underscore');
 const yaml = require('js-yaml');
 
 
-const API_KEY_VS_TOKEN = process.env.key_vs_token || "true"
+const API_KEY_VS_TOKEN = 'true' ; //|| process.env.key_vs_token
 
-if (process.env.APIKEY && API_KEY_VS_TOKEN === 'true') {
+if (process.env.APIKEY ) {
     const APIKEYlog = process.env.APIKEY.substring(process.env.APIKEY.length - 5);
     reglogger.info('APIKEY -> ***' + APIKEYlog);
+}else {
+
+    console.log('process.env.APIKEY is not passed' );
 }
 if (process.env.XACCESSTOKEN) {
     const APIACCESSTOKENlog = process.env.XACCESSTOKEN.substring(process.env.XACCESSTOKEN.length - 5);
@@ -111,13 +117,14 @@ const metaretriever = async () => {
             let pipelinespecTemplate = nextitem.spec.specTemplate;
 
             // reglogger.info(pilinestepNames)
-            if (pilinestepNames.length > 0) // pipeline steps exists
+            if (pilinestepNames.length > 0 && !skipInline) // pipeline steps exists
             {
 
 
                 await processStespForCFCR(metadata.id, metadata.name, pilinesteps, pilinestepNames, pipelinespecTemplate, piplineReports)
 
             } else {
+
 
                 // if you can get the last build id, you cna get the dbuild as https://g.codefresh.io/api/builds/5eaa186bfbe1ee6180c6add6
 
