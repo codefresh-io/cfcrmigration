@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/codefresh-io",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "js-yaml": "^3.13.1",
     "underscore": "^1.10.2",
